@@ -11,54 +11,53 @@ const App = () => {
     const [date, setDate] = useState("");
     const [selectedId, setSelectedId] = useState("");
 
-    // fetch all todos when this view mounted
+    // mount時にfetch
     useEffect(() => {
         fetchTodos();
     }, []);
 
+    // todo取得・setState
     const fetchTodos = async () => {
-        // clean the todos array first
+        // todosのstateを初期化
         setTodos([]);
 
-        // fetch todos from repository
+        // 取得したtodosを変数に格納
         const _todos = await todo.all();
 
-        // set todos to state
+        //todoをsetState
         setTodos(_todos);
     };
 
+
     const onSubmit = async (e: FormEvent) => {
-        // prevent form reload the page
         e.preventDefault();
 
-        // disable the form input and button
+        // データ送信時は入力エリアを無効に
         setIsSubmitting(true);
 
-        // repository function to call is depend on isEditMode state
-        if (!isEditMode) await todo.create({ activity: activity, date: new Date(date) });
-        else await todo.update(selectedId, { activity: activity, date: new Date(date) });
+        if (!isEditMode) await todo.create({ activity: activity, date: new Date(date) });  //編集モードでなければ入力したデータをもとにcreate
+        else await todo.update(selectedId, { activity: activity, date: new Date(date) });  //編集モードの場合は入力したデータをもとにupdate
 
-        // clean the form
-        setActivity("");
-        setDate("");
-        setIsSubmitting(false);
-        setIsEditMode(false);
-        fetchTodos();
+        setActivity("");  //本文をクリア
+        setDate("");  //日付エリアをクリア
+        setIsSubmitting(false);  //入力エリアを再び有効化
+        setIsEditMode(false);  //編集モードも無効化
+        fetchTodos();  //再度fetchし直して表示
     };
 
     const remove = async (id: string) => {
-        // clean the todos state to prevent user double clicking the delete / edit button
+        // stateを初期化
         setTodos([]);
 
-        // remove todo
+        // 選択したtodoのidをもとにremove
         await todo.remove(id);
 
-        // fetch again the todos
+        // fetchし直して表示
         fetchTodos();
     };
 
     const toEditMode = (id: string, activity: string, date: any) => {
-        // set editmode state
+        // 編集モードをonに
         setIsEditMode(true);
 
         // need to tweak the date first before put it in input datetime local
@@ -76,11 +75,11 @@ const App = () => {
 
         const dateString = (_date + "T" + time).toString();
 
-        // set the form value
+        // 選択したtodoの本文、日付をformにset
         setActivity(activity);
         setDate(dateString);
 
-        // also the the selectedid state
+        // 選択したidをset
         setSelectedId(id);
     };
 
@@ -119,7 +118,7 @@ const App = () => {
 
                 <h2>Todos:</h2>
 
-                {/* show if todos is empty */}
+                {/* todoが空のときの表示 */}
                 {todos.length === 0 ? (
                     <div className="loading">
                         <span>Fetching Todos ....</span>
