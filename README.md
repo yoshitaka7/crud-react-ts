@@ -1,8 +1,7 @@
 ##  react typescript firebase CRUD処理
 
 ### ref
-[https://erthru.medium.com/crud-firebase-firestore-with-reactjs-typescript-part-1-config-the-project-ad104a7af3c5] (https://erthru.medium.com/crud-firebase-firestore-with-reactjs-typescript-part-1-config-the-project-ad104a7af3c5)
- [http://localhost:3000](http://localhost:3000)
+ [https://erthru.medium.com/crud-firebase-firestore-with-reactjs-typescript-part-1-config-the-project-ad104a7af3c5](https://erthru.medium.com/crud-firebase-firestore-with-reactjs-typescript-part-1-config-the-project-ad104a7af3c5)
 
 `git clone`
 
